@@ -35,56 +35,14 @@ let cityName;
 let countryName;
 
 
-const params = {
-  lat : 44.34,
-  lon : 10.99,
-  cnt : 8,
-  units: "metric",
-  appid : API_KEY
-}
-
-app.get('/', async (req, res)=>{
-  if (lattitude && longitude){
-
-    
-    try {
-      
-      const response = await axios.get(API_URL + "data/2.5/forecast",{params: params})
-      const result = response.data
-      console.log(result.code, 'aaaaa')
-      const data = result['list'].filter(tomorrow_data);
-      
-      //data with id < 600 indicating chance of rain
-      const rany_data = data.filter(getRainData);
-      
-      // console.log(rany_data)
-      // data.forEach(element => {
-        //   console.log(typeof(element.weather[0].id))
-        // });
-      
-      
-      
-      console.log(rany_data);
+app.get('/', (req, res)=>{
       
       res.render('index.ejs', {
-        cityName,
-        countryName,
+        cityName: null,
+        countryName: null,
+        message : null
       
-    });
-  } catch (error) {
-    console.error(error.response)
-    console.log('amfa')
-  }
-  
-}else{
-  res.render('index.ejs',{
-    cityName : null,
-    countryName : null,
-    
-  })
-}
-  
-  
+    }); 
 })
 
 
@@ -92,28 +50,63 @@ app.get('/', async (req, res)=>{
 
 app.post("/submit",async (req, res)=>{
   try {
-    const response = await axios.get(API_URL + 'geo/1.0/direct', {params:
-      {
-        q: req.body.cityName,
-        appid : API_KEY
+    // geodata start
+      const georesponse = await axios.get(API_URL + 'geo/1.0/direct', {params:
+        {
+          q: req.body.cityName,
+          appid : API_KEY
+        }
+      })
+      if (!georesponse.data || georesponse.data.length === 0){
+        return res.render('index.ejs', {
+          cityName: null,
+          countryName : null,
+          message : "City not found, Try another!"
+        })
       }
-    })
-    console.log()
-    const result = response.data[0]
-    cityName = result.name;
-    countryName = countries.getName(result.country, 'en');
-    lattitude = result.lat;
-    longitude = result.lon;
+      const georesult = georesponse.data[0]
+      cityName = georesult.name;//city name
+      
+      countryName = countries.getName(georesult.country, 'en'); // country name in full
+      console.log(cityName, countryName, lattitude, longitude);
+      // geo end
+      
+      
+      //fetch weather
+      const response = await axios.get(API_URL + "data/2.5/forecast",{params: {
+          lat : georesult.lat,
+          lon : georesult.lon,
+          cnt : 8,
+          units: "metric",
+          appid : API_KEY
+        }})
 
-    
-    console.log(cityName, countryName, lattitude, longitude);
-    res.redirect('/');
+      const result = response.data
+      console.log(result.code, 'aaaaa')
+      const data = result['list'].filter(tomorrow_data);
+      
+      //data with id < 600 indicating chance of rain
+      const rainy_data = data.filter(getRainData);
+
+      rainy_data.array.forEach(element => {
+        console.log(element);
+        
+      });
+
+        
+      res.render('index.ejs', {
+        cityName,
+        countryName,
+        message : null,
+        
+      })
+      
+      
   } catch (error) {
-  
-    console.error('Not found', error.message);
     res.render('index.ejs', {
       cityName : null,
-      countryName : null
+      countryName : null,
+      message : "An error occured, please try again later!"
     })
     
   }
