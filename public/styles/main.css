@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@200;400;500;600;700;800&family=Roboto:ital,wght@0,100;0,400;0,500;1,400&display=swap');
+
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", system-ui;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+}
+.title{
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  flex-wrap: wrap;
+  padding: 20px;
+  margin: 0 auto;
+  margin-top: 50px;
+  min-height: 500px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+.nav-menu{
+  display: flex;
+  padding: 24px;
+}
+.nav-menu{
+  min-height: 70px;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 62px;
+}
+.left-section{
+  flex: 1;
+  height: 50px;
+  max-width: 300px;
+  position: relative;
+}
+.left-section input{
+  width: 100%;
+  min-width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  padding: 10px 10px 10px 40px;
+  font-size: 18px;
+  border: none;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+.left-section i{
+  position: absolute;
+}
+
+.left-section i{
+  top: 50%;
+  transform: translateY(-50%);
+  left: 5px;
+  font-size: 2rem;
+  color: #242424;
+
+}
+
+
+.right-section{
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-section button{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(35, 238, 211, 0.21);
+  border: none;
+  margin-top: 5px;
+}
+.right-section i{
+  font-size: 2rem;
+  color: #242424;
+  flex-shrink: 0;
+
+}
+.city-wrap{
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+.city-wrap .title{
+  font-size: 3rem;
+}
+.weather-wrap{
+  margin-top: 20px;
+  width: 100%;
+
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+.box{
+  padding: 10px;
+  min-width: 300px;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.6) ;
+}
+.box:hover .box:nth-child(1){
+  color: red;
+}
+
+.weather-icon-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  position: relative;/* check*/
+}
+.temperature-wrap{
+  position: relative;
+}
+.weather-icon-container img{
+  width: 100px;
+}
+
+.temperature-wrap .temp{
+  font-size: 30px;
+  font-weight: 900;
+}
+.temperature-wrap .degree{
+  position: absolute;
+  width: 20px;
+  top: -5px;
+  right: -25px;
+}
+.degree img{
+  width: 100%;
+
+}
+
+.weather-description-wrap{
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.atmospheric-conditions-wrap{
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
+}
+.atmospheric-conditions-wrap .img-wrap{
+  width: 30px;
+}
+.atmospheric-conditions-wrap img{
+  width: 100%;
+}
+.humidity-wrap,.wind-wrap{
+  display: flex;
+  
+  gap: 10px;
+  align-items: center;
+}
+
+.humidity-wrap .value,.wind-wrap .value{
+  
+  font-size: 24px;
+  font-weight: 700;
+
+}
+.humidity-wrap .description,.wind-wrap .description{
+  font-size: 18px;
+  margin-top: 8px;
+}
+.outcome{
+  text-align: center;
+  margin-top: 20px;
+}

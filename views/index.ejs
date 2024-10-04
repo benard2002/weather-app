@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>The Weather</title>
+  
+  
+  </head>
+  
+  
+  
+  <body>
+    
+    <main>
+      
+      <nav class="navbar">
+        <div class="nav-menu">
+          <div class="left-section">
+            <form action="/submit" method="post">
+
+              <div class="input-field">
+                <i class="uil uil-map-marker location"></i>
+                <input type="text" placeholder="City/Zip code" name="cityName" required>
+              </div>
+              
+            </div>
+            <div class="right-section">
+              <button type="submit">
+                <i class="uil uil-search"></i>
+                
+              </button>
+              
+            </div>
+          </form>
+          
+        </div>
+      </nav>
+
+
+      <div class="city-wrap">
+        
+        <h1 class="title"><%=cityName && countryName ? `${cityName}, ${countryName}`: "Welcome! Check if it will rain tomorrow in your area." %></h1>
+      </div>
+          
+      <div class="weather-wrap">
+        
+
+        
+        <div class="box">
+          <div class="weather-icon-container">
+            <div class="wearther-icon-wrap">
+              <img src="images/cloud-solid.svg" alt="cloud">
+            </div>
+            <div class="temperature-wrap">
+              <div class="temp">
+                27
+              </div>
+              <div class="degree">
+                <img src="images/celsius-degrees-symbol-of-temperature.svg" alt="celsius">
+              </div>
+            </div>
+          </div>
+          <div class="weather-description-wrap">
+            <div class="description title">
+              Scatered clouds
+            </div>
+          </div>
+          <div class="atmospheric-conditions-wrap">
+            <div class="humidity-wrap">
+              <div class="img-wrap">
+                <img src="images/water-solid.svg" alt="humidity">
+              </div>
+              <div class="details">
+                <p class="value">75%</p>
+                <p class="description">humidity</p>
+              </div>
+            </div>
+            <div class="wind-wrap">
+              <div class="img-wrap">
+                <img src="images/wind-solid.svg" alt="wind">
+              </div>
+              <div class="details">
+                <p class="value">75 Km/h</p>
+                <p class="description">Wind speed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="box">
+          <div class="weather-icon-container">
+            <div class="wearther-icon-wrap">
+              <img src="images/cloud-solid.svg" alt="cloud">
+            </div>
+            <div class="temperature-wrap">
+              <div class="temp">
+                27
+              </div>
+              <div class="degree">
+                <img src="images/celsius-degrees-symbol-of-temperature.svg" alt="celsius">
+              </div>
+            </div>
+          </div>
+          <div class="weather-description-wrap">
+            <div class="description title">
+              Scatered clouds
+            </div>
+          </div>
+          <div class="atmospheric-conditions-wrap">
+            <div class="humidity-wrap">
+              <div class="img-wrap">
+                <img src="images/water-solid.svg" alt="humidity">
+              </div>
+              <div class="details">
+                <p class="value">75%</p>
+                <p class="description">humidity</p>
+              </div>
+            </div>
+            <div class="wind-wrap">
+              <div class="img-wrap">
+                <img src="images/wind-solid.svg" alt="wind">
+              </div>
+              <div class="details">
+                <p class="value">75 Km/h</p>
+                <p class="description">Wind speed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="box">
+          <div class="weather-icon-container">
+            <div class="wearther-icon-wrap">
+              <img src="images/cloud-solid.svg" alt="cloud">
+            </div>
+            <div class="temperature-wrap">
+              <div class="temp">
+                27
+              </div>
+              <div class="degree">
+                <img src="images/celsius-degrees-symbol-of-temperature.svg" alt="celsius">
+              </div>
+            </div>
+          </div>
+          <div class="weather-description-wrap">
+            <div class="description title">
+              Scatered clouds
+            </div>
+          </div>
+          <div class="atmospheric-conditions-wrap">
+            <div class="humidity-wrap">
+              <div class="img-wrap">
+                <img src="images/water-solid.svg" alt="humidity">
+              </div>
+              <div class="details">
+                <p class="value">75%</p>
+                <p class="description">humidity</p>
+              </div>
+            </div>
+            <div class="wind-wrap">
+              <div class="img-wrap">
+                <img src="images/wind-solid.svg" alt="wind">
+              </div>
+              <div class="details">
+                <p class="value">75 Km/h</p>
+                <p class="description">Wind speed</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+        
+        
+        
+        
+
+
+
+
+        
+      </div>
+      
+      <div class="outcome">
+        <h2>Likely rain!</h2>
+      </div>
+    </main>
+  </body>
+</html>
