@@ -20,120 +20,124 @@
         
         <nav class="navbar">
           <div class="nav-menu">
-          <div class="left-section">
             <form action="/submit" method="post">
-              
-              <div class="input-field">
-                <i class="uil uil-map-marker location"></i>
-                <input type="text" placeholder="City/Zip code" name="cityName" required>
-              </div>
-              
-            </div>
-            <div class="right-section">
-              <button type="submit">
-                <i class="uil uil-search"></i>
+              <div class="left-section">
                 
-              </button>
-              
-            </div>
-          </form>
+                <div class="input-field">
+                  <i class="uil uil-map-marker location"></i>
+                  <input type="text" placeholder="City/Zip code" name="cityName" required>
+                </div>
+              </div>    
+              <div class="right-section">
+                <button type="submit">
+                  <i class="uil uil-search"></i>
+                  
+                </button>
+                
+              </div>
+            </form>
+            
+          </div>
+        </nav>
+
+
+        <div class="city-wrap">
+          
+          <h1 class="header title"><%=cityName && countryName ? `${cityName}, ${countryName}`: "Welcome! Check if it will rain tomorrow in your area." %></h1>
+          <p class="err"><%=message ? message : ""  %></p>
+        </div>
+      
+          
+        <div class="weather-wrap">
+          <!-- get day -->
+          
+          
+          
+          
+          <% if (locals.rainy_data) { %>
+            
+            <% if (rainy_data.length > 0){%>
+              <div class="outcome title">
+                <h2>Rain is expected tomorrow. Don't forget your umbrella! ☂️</h2>
+              </div>
+              <%rainy_data.forEach((data)=>{%>
+                
+                <% const dateStr = data.dt_txt.split(' ')[0]; // Get the date part %>
+                <% const dateObj = new Date(dateStr); // Create Date object %>
+                <% const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' }); %>
+
+                <div class="box">
+                  <div class="date-wrap">
+                    <div class="date"><%=data.dt_txt.split(' ')[0] %></div>
+                    <div class="time"><%= data.dt_txt.split(' ')[1] %> </div>
+                    <div class="day"><%=dayName  %></div>
+                    
+                  </div>
+                  <div class="weather-icon-container">
+                    <div class="wearther-icon-wrap">
+                      <!-- <img src="images/cloud-solid.svg" alt="cloud"> -->
+                      <img src="https://openweathermap.org/img/wn/<%=data.weather[0].icon%>@2x.png" alt="condition">
+                    </div>
+                    <div class="temperature-wrap">
+                      <div class="temp">
+                        <%=data.main.temp  %>
+                      </div>
+                      <div class="degree">
+                        <i class="uil uil-celsius deg"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="weather-description-wrap">
+                    <div class="description title">
+                      <%= data.weather[0].description %>
+                    </div>
+                  </div>
+                  <div class="atmospheric-conditions-wrap">
+                    <div class="humidity-wrap">
+                      <div class="img-wrap">
+                        <img src="images/water-solid.svg" alt="humidity">
+                      </div>
+                      <div class="details">
+                        <p class="value"><%=data.main.humidity  %>%</p>
+                        <p class="description">humidity</p>
+                      </div>
+                    </div>
+                    <div class="wind-wrap">
+                      <div class="img-wrap">
+                        <img src="images/wind-solid.svg" alt="wind">
+                      </div>
+                      <div class="details">
+                        <p class="value"><%=data.wind.speed%> m/s</p>
+                        <p class="description">Wind speed</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              <%})%>
+              <div class="title weather-info">Rain Forecast for Tomorrow.</div>
+              <%}else{%>  
+              <div class="output">
+                <h2>No rain expected tomorrow! Enjoy your day!%></h2>
+                
+              </div>
+              <div class="clear-weather">
+                <div class="day">
+                  <%  
+                    const today = new Date();
+                    const tomorrow = new Date(today); 
+                    tomorrow.setDate(today.getDate() + 1);
+                    const tomorrowName = tomorrow.toLocaleDateString('en-US',{weekday: "long"})
+                  %>
+                  <%=tomorrowName  %>
+                </div>
+                <img class="clear-sky-icon" src="images/clear-sky.png" alt="">
+              </div>
+            <% } %>
+          <% }%>     
           
         </div>
-      </nav>
-
-
-      <div class="city-wrap">
-        
-        <h1 class="title"><%=cityName && countryName ? `${cityName}, ${countryName}`: "Welcome! Check if it will rain tomorrow in your area." %></h1>
-        <p class="err"><%=message ? message : ""  %></p>
       </div>
-      <div class="outcome title">
-        <h2><%=locals.rainy_data && locals.rainy_data.length > 0 ?"Rain is expected tomorrow. Don't forget your umbrella! ☂️": 'No rain expected tomorrow! Enjoy your day!'%></h2>
-      </div>
-          
-      <div class="weather-wrap">
-        <!-- get day -->
-        
-        
-        
-        
-        <% if (locals.rainy_data) { %>
-          <% if (rainy_data.length > 0){%>
-            <%rainy_data.forEach((data)=>{%>
-              
-              <% const dateStr = data.dt_txt.split(' ')[0]; // Get the date part %>
-              <% const dateObj = new Date(dateStr); // Create Date object %>
-              <% const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' }); %>
-
-              <div class="box">
-                <div class="date-wrap">
-                  <div class="date"><%=data.dt_txt.split(' ')[0] %></div>
-                  <div class="time"><%= data.dt_txt.split(' ')[1] %> </div>
-                  <div class="day"><%=dayName  %></div>
-                  
-                </div>
-                <div class="weather-icon-container">
-                  <div class="wearther-icon-wrap">
-                    <!-- <img src="images/cloud-solid.svg" alt="cloud"> -->
-                    <img src="https://openweathermap.org/img/wn/<%=data.weather[0].icon%>@2x.png" alt="condition">
-                  </div>
-                  <div class="temperature-wrap">
-                    <div class="temp">
-                      <%=data.main.temp  %>
-                    </div>
-                    <div class="degree">
-                      <i class="uil uil-celsius deg"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="weather-description-wrap">
-                  <div class="description title">
-                    <%= data.weather[0].description %>
-                  </div>
-                </div>
-                <div class="atmospheric-conditions-wrap">
-                  <div class="humidity-wrap">
-                    <div class="img-wrap">
-                      <img src="images/water-solid.svg" alt="humidity">
-                    </div>
-                    <div class="details">
-                      <p class="value"><%=data.main.humidity  %>%</p>
-                      <p class="description">humidity</p>
-                    </div>
-                  </div>
-                  <div class="wind-wrap">
-                    <div class="img-wrap">
-                      <img src="images/wind-solid.svg" alt="wind">
-                    </div>
-                    <div class="details">
-                      <p class="value"><%=data.wind.speed%> m/s</p>
-                      <p class="description">Wind speed</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-            <%})%>
-            <div class="title weather-info">Rain Forecast for Tomorrow.</div>
-            <%}else{%>     
-            <div class="clear-weather">
-              <div class="day">
-                <%  
-                  const today = new Date();
-                  const tomorrow = new Date(today); 
-                  tomorrow.setDate(today.getDate() + 1);
-                  const tomorrowName = tomorrow.toLocaleDateString('en-US',{weekday: "long"})
-                 %>
-                <%=tomorrowName  %>
-              </div>
-              <img class="clear-sky-icon" src="images/clear-sky.png" alt="">
-            </div>
-          <% } %>
-        <% } %> 
-        
-      </div>
-      
-    </div>
       
     </main>
   </body>
