@@ -7,7 +7,7 @@ import countries from "i18n-iso-countries"
 
 const app = express();
 const port = 3000;
-const today = new Date();
+
 
 
 
@@ -19,18 +19,18 @@ app.use(express.static("public"))
 
 // get hold of tomorrow date
 const tomorrow = get_tomorrow_date()
-console.log(tomorrow)
+
 // web weather api
 
 const API_URL = "https://api.openweathermap.org/"
-const COUNTRY_API = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}"
+
 
 const API_KEY = "18d510ab8dee6d3944c55d90686698d5"
 
+// Used 5 day 3 hour data, this app tells if there's a chance of rain in a particular area tomorrow
 
 
-let lattitude;
-let longitude
+
 let cityName;
 let countryName;
 
@@ -68,37 +68,41 @@ app.post("/submit",async (req, res)=>{
       cityName = georesult.name;//city name
       
       countryName = countries.getName(georesult.country, 'en'); // country name in full
-      console.log(cityName, countryName, lattitude, longitude);
+      console.log(cityName, countryName);
       // geo end
       
       
+      const lat = georesult.lat;
+      const lon = georesult.lon
+
       //fetch weather
       const response = await axios.get(API_URL + "data/2.5/forecast",{params: {
-          lat : georesult.lat,
-          lon : georesult.lon,
+          lat,
+          lon,
           cnt : 8,
           units: "metric",
           appid : API_KEY
         }})
-
+      
       const result = response.data
-      console.log(result.code, 'aaaaa')
+      
+      // console.log(result.code, 'aaaaa')
       const data = result['list'].filter(tomorrow_data);
       
       //data with id < 600 indicating chance of rain
       const rainy_data = data.filter(getRainData);
-
-      rainy_data.array.forEach(element => {
-        console.log(element);
+      console.log(rainy_data)
+      // rainy_data.forEach(element => {
+      //   console.log(element);
         
-      });
+      // });
 
         
       res.render('index.ejs', {
         cityName,
         countryName,
         message : null,
-        
+        rainy_data
       })
       
       

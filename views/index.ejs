@@ -15,12 +15,14 @@
   <body>
     
     <main>
-      
-      <nav class="navbar">
-        <div class="nav-menu">
+      <div class="main-section">
+
+        
+        <nav class="navbar">
+          <div class="nav-menu">
           <div class="left-section">
             <form action="/submit" method="post">
-
+              
               <div class="input-field">
                 <i class="uil uil-map-marker location"></i>
                 <input type="text" placeholder="City/Zip code" name="cityName" required>
@@ -45,12 +47,31 @@
         <h1 class="title"><%=cityName && countryName ? `${cityName}, ${countryName}`: "Welcome! Check if it will rain tomorrow in your area." %></h1>
         <p class="err"><%=message ? message : ""  %></p>
       </div>
+      <div class="outcome title">
+        <h2><%=locals.rainy_data && locals.rainy_data.length > 0 ?"Rain is expected tomorrow. Don't forget your umbrella! ☂️": 'No rain expected tomorrow! Enjoy your day!'%></h2>
+      </div>
           
       <div class="weather-wrap">
+        <!-- get day -->
+        
+        
+        
         
         <% if (locals.rainy_data) { %>
+          <% if (rainy_data.length > 0){%>
             <%rainy_data.forEach((data)=>{%>
+              
+              <% const dateStr = data.dt_txt.split(' ')[0]; // Get the date part %>
+              <% const dateObj = new Date(dateStr); // Create Date object %>
+              <% const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' }); %>
+
               <div class="box">
+                <div class="date-wrap">
+                  <div class="date"><%=data.dt_txt.split(' ')[0] %></div>
+                  <div class="time"><%= data.dt_txt.split(' ')[1] %> </div>
+                  <div class="day"><%=dayName  %></div>
+                  
+                </div>
                 <div class="weather-icon-container">
                   <div class="wearther-icon-wrap">
                     <!-- <img src="images/cloud-solid.svg" alt="cloud"> -->
@@ -61,7 +82,7 @@
                       <%=data.main.temp  %>
                     </div>
                     <div class="degree">
-                      <img src="images/celsius-degrees-symbol-of-temperature.svg" alt="celsius">
+                      <i class="uil uil-celsius deg"></i>
                     </div>
                   </div>
                 </div>
@@ -85,7 +106,7 @@
                       <img src="images/wind-solid.svg" alt="wind">
                     </div>
                     <div class="details">
-                      <p class="value"><%=(data.wind.speed * 0.001).toFixed(2)%> m/s</p>
+                      <p class="value"><%=data.wind.speed%> m/s</p>
                       <p class="description">Wind speed</p>
                     </div>
                   </div>
@@ -93,114 +114,27 @@
               </div>
               
             <%})%>
-        
-            
-            <% } %>
-        
-
-<!-- 
-        <div class="box">
-          <div class="weather-icon-container">
-            <div class="wearther-icon-wrap">
-              <img src="images/cloud-solid.svg" alt="cloud">
+            <div class="title weather-info">Rain Forecast for Tomorrow.</div>
+            <%}else{%>     
+            <div class="clear-weather">
+              <div class="day">
+                <%  
+                  const today = new Date();
+                  const tomorrow = new Date(today); 
+                  tomorrow.setDate(today.getDate() + 1);
+                  const tomorrowName = tomorrow.toLocaleDateString('en-US',{weekday: "long"})
+                 %>
+                <%=tomorrowName  %>
+              </div>
+              <img class="clear-sky-icon" src="images/clear-sky.png" alt="">
             </div>
-            <div class="temperature-wrap">
-              <div class="temp">
-                27
-              </div>
-              <div class="degree">
-                <img src="images/celsius-degrees-symbol-of-temperature.svg" alt="celsius">
-              </div>
-            </div>
-          </div>
-          <div class="weather-description-wrap">
-            <div class="description title">
-              Scatered clouds
-            </div>
-          </div>
-          <div class="atmospheric-conditions-wrap">
-            <div class="humidity-wrap">
-              <div class="img-wrap">
-                <img src="images/water-solid.svg" alt="humidity">
-              </div>
-              <div class="details">
-                <p class="value">75%</p>
-                <p class="description">humidity</p>
-              </div>
-            </div>
-            <div class="wind-wrap">
-              <div class="img-wrap">
-                <img src="images/wind-solid.svg" alt="wind">
-              </div>
-              <div class="details">
-                <p class="value">75 Km/h</p>
-                <p class="description">Wind speed</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-
-        <div class="box">
-          <div class="weather-icon-container">
-            <div class="wearther-icon-wrap">
-              <img src="images/cloud-solid.svg" alt="cloud">
-            </div>
-            <div class="temperature-wrap">
-              <div class="temp">
-                27
-              </div>
-              <div class="degree">
-                <img src="images/celsius-degrees-symbol-of-temperature.svg" alt="celsius">
-              </div>
-            </div>
-          </div>
-          <div class="weather-description-wrap">
-            <div class="description title">
-              Scatered clouds
-            </div>
-          </div>
-          <div class="atmospheric-conditions-wrap">
-            <div class="humidity-wrap">
-              <div class="img-wrap">
-                <img src="images/water-solid.svg" alt="humidity">
-              </div>
-              <div class="details">
-                <p class="value">75%</p>
-                <p class="description">humidity</p>
-              </div>
-            </div>
-            <div class="wind-wrap">
-              <div class="img-wrap">
-                <img src="images/wind-solid.svg" alt="wind">
-              </div>
-              <div class="details">
-                <p class="value">75 Km/h</p>
-                <p class="description">Wind speed</p>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-
-
-
-
-
-        
-        
-        
-        
-
-
-
-
+          <% } %>
+        <% } %> 
         
       </div>
       
-      <div class="outcome">
-        <h2>Likely rain!</h2>
-      </div>
+    </div>
+      
     </main>
   </body>
 </html>
