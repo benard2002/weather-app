@@ -239,3 +239,9 @@ main{
   font-size: 20px;
   font-weight: 600;
 }
+
+@media (max-width: 430px) {
+  .city-wrap .title{
+    font-size: 2rem;
+  }
+}
