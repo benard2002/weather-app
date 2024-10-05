@@ -2,7 +2,9 @@ import express from "express"
 import axios from "axios"
 import bodyParser from "body-parser"
 import countries from "i18n-iso-countries"
+import dotenv from "dotenv"
 
+dotenv.config()
 
 
 const app = express();
@@ -25,16 +27,15 @@ const tomorrow = get_tomorrow_date()
 const API_URL = "https://api.openweathermap.org/"
 
 
-const API_KEY = "18d510ab8dee6d3944c55d90686698d5"
+const API_KEY = process.env.API_KEY
+
 
 // Used 5 day 3 hour data, this app tells if there's a chance of rain in a particular area tomorrow
-
-
 
 let cityName;
 let countryName;
 
-
+//first load home page
 app.get('/', (req, res)=>{
       
       res.render('index.ejs', {
@@ -57,6 +58,7 @@ app.post("/submit",async (req, res)=>{
           appid : API_KEY
         }
       })
+      // check city data
       if (!georesponse.data || georesponse.data.length === 0){
         return res.render('index.ejs', {
           cityName: null,
@@ -91,12 +93,8 @@ app.post("/submit",async (req, res)=>{
       
       //data with id < 600 indicating chance of rain
       const rainy_data = data.filter(getRainData);
-      console.log(rainy_data)
-      // rainy_data.forEach(element => {
-      //   console.log(element);
-        
-      // });
-
+      
+      
         
       res.render('index.ejs', {
         cityName,
@@ -117,16 +115,9 @@ app.post("/submit",async (req, res)=>{
 })
 
 
-
 app.listen(port, ()=>{
   console.log(`server runnig on port ${port}`);
 })
-
-
-
-
-
-
 
 
 function get_tomorrow_date(){
