@@ -26,6 +26,7 @@ main{
 
 .main-section{
   display: flex;
+  padding: 0 10px;
   flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
@@ -221,10 +222,9 @@ main{
 
 /* clear weather */
 .clear-weather{
-  border: 2px solid red;
   display: block;
   width: 100%;
-  margin: ;
+  margin-top: 40px;
   text-align: center;
   position: relative;
 }
@@ -237,7 +237,7 @@ main{
   font-weight: bold;
   color: dodgerblue;
   position: absolute;
-  left: 150px;
+  left: 70px;
 }
 
 .weather-info{
