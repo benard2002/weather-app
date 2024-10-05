@@ -3,3 +3,4 @@ package-lock.json
 try.js
 try2.js
 views/index.html
+.env
