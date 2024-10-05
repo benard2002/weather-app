@@ -21,7 +21,6 @@ main{
   display: flex;
   max-width: 800px;
   padding: 10px;
-  border: 2px solid red;
   min-height: 100vh;
 }
 
@@ -222,9 +221,10 @@ main{
 
 /* clear weather */
 .clear-weather{
+  border: 2px solid red;
   display: block;
   width: 100%;
-  margin-top: 50px;
+  margin: ;
   text-align: center;
   position: relative;
 }
