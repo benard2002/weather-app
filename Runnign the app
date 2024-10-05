@@ -1,0 +1,4 @@
+use npm install to install the module using
+npm i
+Get the api_key at https://openweathermap.org/forecast5
+run app usnig nodemon index.js
